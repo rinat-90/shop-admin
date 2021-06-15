@@ -6,7 +6,10 @@
         <Logo />
       </div>
       <form @submit.prevent="onSubmit">
-<!--        error display here-->
+        <div class="auth-error" v-if="error">
+          <span>{{ error }}</span>
+          <span class="close" @click="dismiss">X</span>
+        </div>
         <input v-model.trim="username" type="text" name="username" />
         <input v-model.trim="password" type="password" name="password" />
         <button type="submit">Login</button>
@@ -17,7 +20,8 @@
 
 <script>
 import Logo from "@/components/Logo";
-import { reactive } from 'vue'
+import { useStore } from 'vuex'
+import { reactive, toRefs, computed } from 'vue'
 
 export default {
   name: "Login",
@@ -28,13 +32,18 @@ export default {
       password: 'ElmStreet2019'
     })
 
+    const store = useStore()
+
     const onSubmit = async () => {
-      // TODO handle submit
+      if (!form.username || !form.password) return false
+      await store.dispatch('auth/login', form)
     }
 
     return {
       onSubmit,
-      form
+      ...toRefs(form),
+      error: computed(() => store.getters['auth/error']),
+      dismiss: () => store.commit('auth/clearError'),
 
     }
 
