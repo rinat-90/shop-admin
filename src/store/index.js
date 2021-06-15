@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import { createLogger } from 'vuex'
 
 import { auth } from './modules/auth'
+import { order } from './modules/order'
 
 export default createStore({
   state: {
@@ -11,7 +12,8 @@ export default createStore({
   actions: {
   },
   modules: {
-    auth
+    auth,
+    order
   },
   plugins: [createLogger()]
 })
