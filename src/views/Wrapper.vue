@@ -6,10 +6,23 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
+import { watch, computed } from 'vue'
 import Sidebar from "@/components/Sidebar";
 export default {
   name: "Wrapper",
-  components: { Sidebar },
+  components: {Sidebar},
+  setup() {
+    const store = useStore()
+    const orderError = computed(() => store.getters['order/error'])
+
+    watch([orderError], ([orderError]) => {
+      if (orderError) {
+        store.dispatch('auth/logout')
+      }
+    })
+
+  }
 }
 </script>
 
