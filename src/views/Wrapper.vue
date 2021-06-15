@@ -40,8 +40,8 @@ export default {
 }
 
 .main {
-  margin-left: 300px; /* Same as the width of the sidenav */
-  font-size: 28px; /* Increased text to enable scrolling */
+  margin-left: 300px;
+  font-size: 28px;
   padding: 0px 10px;
 }
 </style>

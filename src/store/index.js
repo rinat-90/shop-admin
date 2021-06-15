@@ -3,6 +3,7 @@ import { createLogger } from 'vuex'
 
 import { auth } from './modules/auth'
 import { order } from './modules/order'
+import { dashboard } from './modules/dashboard'
 
 export default createStore({
   state: {
@@ -13,7 +14,8 @@ export default createStore({
   },
   modules: {
     auth,
-    order
+    order,
+    dashboard
   },
   plugins: [createLogger()]
 })

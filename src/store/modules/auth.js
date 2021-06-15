@@ -14,7 +14,6 @@ export const auth = {
     async login({ commit }, { username, password }) {
       try {
         commit('loginRequest');
-
         const data = await authService.login({username, password})
         if (data.msg) {
           commit('loginFailure', data.msg)
@@ -29,9 +28,10 @@ export const auth = {
 
 
     },
-    logout({ commit } ) {
+    logout({ commit, dispatch } ) {
       authService.logout();
-
+      dispatch('dashboard/clearDashboard', null, { root: true })
+      dispatch('order/clearOrders', null, { root: true })
       commit('logout');
       router.push('/logout')
     }
