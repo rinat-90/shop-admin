@@ -40,31 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 
-.menu{
-  display: flex;
-  flex-direction: column;
-
-  &-list {
-    font-size: 20px;
-    list-style: none;
-    padding: 0 20px;
-
-    li{
-
-      margin-bottom: 20px;
-
-      a{
-        text-decoration: none;
-        color: #2e2f35;
-
-        &:hover{
-          color: #40424a;
-        }
-      }
-
-    }
-  }
-}
 
 
 </style>

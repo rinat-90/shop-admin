@@ -100,21 +100,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table {
-  width: 100%;
-  th {
-    text-align: left;
-  }
 
-  td {
-    height: 40px;
-    vertical-align: bottom;
-  }
-
-  tbody{
-    tr:hover{
-      background-color: #eee;
-    }
-  }
-}
 </style>

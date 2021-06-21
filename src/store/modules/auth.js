@@ -15,7 +15,6 @@ export const auth = {
       try {
         commit('loginRequest');
         const data = await authService.login({ username, password })
-        console.log(data)
         if (data.msg) {
           commit('loginFailure', data.msg)
         } else {

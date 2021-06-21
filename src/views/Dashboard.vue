@@ -35,35 +35,6 @@
       </template>
     </Table>
   </div>
-
-<!--  <h1>Dashboard</h1>-->
-<!--  <div class="flex" v-if="todaySale && lastWeekSale && lastMonthSale">-->
-<!--    <SalesBox title="Today" :sale="todaySale" />-->
-<!--    <SalesBox title="Last Week" :sale="lastWeekSale" />-->
-<!--    <SalesBox title="Last Month" :sale="lastMonthSale" />-->
-<!--  </div>-->
-
-
-<!--  <div class="flex justify-between my-5">-->
-<!--    <div class="flex flex-row gap-3">-->
-<!--      <h1>Revenue</h1>-->
-<!--      <div class="flex justify-center flex-col h-full text-sm text-gray-500">-->
-<!--        <span class="">{{ type === 'week' ? '(Last 7 days)': 'Last 12 months'}}</span>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <label for="toggle_button">-->
-<!--      <span v-if="toggle" class="toggle__label">WEEK</span>-->
-<!--      <span v-if="!toggle" class="toggle__label">MONTH</span>-->
-
-<!--      <input-->
-<!--          :value="toggle"-->
-<!--          @input="toggle = !toggle"-->
-<!--          type="checkbox"-->
-<!--          id="toggle_button">-->
-<!--    </label>-->
-<!--  </div>-->
-
-
 </template>
 
 <script>
@@ -112,19 +83,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.heading{
-  display: flex;
-}
 
-.revenue-heading{
-  display: flex;
-  justify-content: space-between;
-}
-
-.stats{
-  display: flex;
-  justify-content: start;
-  gap: 20px;
-  margin-bottom: 20px;
-}
 </style>
