@@ -1,63 +1,85 @@
 <template>
-  <h1>Dashboard</h1>
-  <div class="stats" v-if="todaySale && lastWeekSale && lastMonthSale">
-    <SalesBox title="Today" :sale="todaySale" />
-    <SalesBox title="Last Week" :sale="lastWeekSale" />
-    <SalesBox title="Last Month" :sale="lastMonthSale" />
-  </div>
+  <div class="h-full ml-14 mt-14 mb-10 md:ml-64">
+    <h3 class="text-lg font-semibold mx-5 mt-20">Sales</h3>
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+      <SalesBox title="Today" :sale="todaySale" />
+      <SalesBox title="Last Week" :sale="lastWeekSale" />
+      <SalesBox title="Last Month" :sale="lastMonthSale" />
+    </div>
+    <!-- ./Statistics Cards -->
+
+    <!-- Revenue Chart  -->
+    <h3 class="text-lg font-semibold mx-5 mt-20">Revenue Sale</h3>
+    <Chart
+        v-if="sales"
+        :type="type"
+        :sales="sales(type)" />
+    <!-- Revenue Chart -->
 
 
-  <div class="revenue-heading">
-    <h1>Revenue
-      <span v-if="type === 'week'">(Last 7 days)</span>
-      <span v-if="type === 'month'">(Last 12 months)</span>
-    </h1>
-    <label for="toggle_button">
-      <span v-if="toggle" class="toggle__label">WEEK</span>
-      <span v-if="!toggle" class="toggle__label">MONTH</span>
-
-      <input
-          :value="toggle"
-          @input="toggle = !toggle"
-          type="checkbox"
-          id="toggle_button">
-    </label>
-  </div>
-  <Chart
-      v-if="sales"
-      :type="type"
-      :sales="sales(type)" />
-
-  <h1>Bestsellers</h1>
-  <Card>
-    <div v-if="loading">Loading...</div>
+    <h3 class="text-lg font-semibold mx-5">Bestsellers</h3>
     <Table
         v-if="bestSellers"
         :headers="['Product Name', 'Price', '# Unit Sold', 'Revenue']"
         :data="bestSellers">
       <template v-slot="{ data }">
-        <tr v-for="bs in data" :key="bs.product.id">
-          <td v-text="bs.product.name" />
-          <td v-text="$filters.currencyFilter(bs.revenue / bs.units)" />
-          <td v-text="bs.units" />
-          <td v-text="$filters.currencyFilter(bs.revenue)" />
+        <tr
+            v-for="bs in data" :key="bs.product.id"
+            class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+          <td v-text=" bs.product.name" class="px-4 py-3 font-semibold text-sm" />
+          <td v-text="$filters.currencyFilter(bs.revenue / bs.units)" class="px-4 py-3 text-sm" />
+          <td v-text="bs.units" class="px-4 py-3 text-sm" />
+          <td v-text="$filters.currencyFilter(bs.revenue)" class="px-4 py-3 text-xs" />
         </tr>
       </template>
     </Table>
-  </Card>
+  </div>
+
+<!--  <h1>Dashboard</h1>-->
+<!--  <div class="flex" v-if="todaySale && lastWeekSale && lastMonthSale">-->
+<!--    <SalesBox title="Today" :sale="todaySale" />-->
+<!--    <SalesBox title="Last Week" :sale="lastWeekSale" />-->
+<!--    <SalesBox title="Last Month" :sale="lastMonthSale" />-->
+<!--  </div>-->
+
+
+<!--  <div class="flex justify-between my-5">-->
+<!--    <div class="flex flex-row gap-3">-->
+<!--      <h1>Revenue</h1>-->
+<!--      <div class="flex justify-center flex-col h-full text-sm text-gray-500">-->
+<!--        <span class="">{{ type === 'week' ? '(Last 7 days)': 'Last 12 months'}}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <label for="toggle_button">-->
+<!--      <span v-if="toggle" class="toggle__label">WEEK</span>-->
+<!--      <span v-if="!toggle" class="toggle__label">MONTH</span>-->
+
+<!--      <input-->
+<!--          :value="toggle"-->
+<!--          @input="toggle = !toggle"-->
+<!--          type="checkbox"-->
+<!--          id="toggle_button">-->
+<!--    </label>-->
+<!--  </div>-->
+
+
 </template>
 
 <script>
 import { useStore } from 'vuex'
 import { ref, watch, computed, onMounted } from 'vue'
 import Table from "@/components/Table";
-import Card from "@/components/Card";
 import Chart from "@/components/Chart";
 import SalesBox from "@/components/SalesBox";
 
 export default {
   name: "Dashboard",
-  components: { Table, Card, Chart, SalesBox },
+   components: {
+     Table,
+     Chart,
+     SalesBox
+   },
   setup(){
     const toggle = ref(false)
     const type = ref('month')
@@ -90,9 +112,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1{
-  margin-bottom: 20px;
-}
 .heading{
   display: flex;
 }

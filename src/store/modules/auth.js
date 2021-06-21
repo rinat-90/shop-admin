@@ -14,10 +14,10 @@ export const auth = {
     async login({ commit }, { username, password }) {
       try {
         commit('loginRequest');
-        const data = await authService.login({username, password})
+        const data = await authService.login({ username, password })
+        console.log(data)
         if (data.msg) {
           commit('loginFailure', data.msg)
-          return data.msg
         } else {
           commit('loginSuccess', data);
         }

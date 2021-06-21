@@ -1,18 +1,38 @@
 <template>
-  <div class="wrapper">
-    <div class="login">
-      <div class="header">
-        <h1 class="header-title">Freddy's Artisanal Halloween Candy shop</h1>
+  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 border p-8">
+      <div class="flex">
+        <h2 class="mt-6 text-4xl font-extrabold text-gray-900">
+          Freddy's Artisanal Halloween Candy shop
+        </h2>
         <Logo />
       </div>
-      <form @submit.prevent="onSubmit">
-        <div class="auth-error" v-if="error">
-          <span>{{ error }}</span>
-          <span class="close" @click="dismiss">X</span>
+      <form @submit.prevent="onSubmit" class="mt-8 space-y-6">
+        <div v-if="error" class="flex justify-between border border-red-500 p-2 text-red-500">
+          <div>{{ error }}</div>
+          <div class="cursor-pointer" @click="dismiss">X</div>
         </div>
-        <input v-model.trim="username" type="text" name="username" />
-        <input v-model.trim="password" type="password" name="password" />
-        <button type="submit">Login</button>
+        <input type="hidden" name="remember" value="true" />
+        <div class="rounded-md shadow-sm -space-y-px">
+          <div>
+            <label for="username" class="sr-only">Username</label>
+            <input v-model.trim="username" id="username" name="username" type="text" autocomplete="email" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address" />
+          </div>
+          <div>
+            <label for="password" class="sr-only">Password</label>
+            <input v-model.trim="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password" />
+          </div>
+        </div>
+
+
+        <div>
+          <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+              <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+            </span>
+            Sign in
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -22,10 +42,11 @@
 import Logo from "@/components/Logo";
 import { useStore } from 'vuex'
 import { reactive, toRefs, computed } from 'vue'
+import { LockClosedIcon } from '@heroicons/vue/solid'
 
 export default {
   name: "Login",
-  components: { Logo },
+  components: { LockClosedIcon, Logo },
   setup(){
     const form = reactive({
       username: 'freddy',
@@ -53,60 +74,4 @@ export default {
 
 <style lang="scss" scoped>
 
-.wrapper{
-  height: 100vh;
-  width: 100%;
-  display: flex;
-}
-
-.login{
-  align-self: center;
-  border: 5px solid #ccc;
-  width: 300px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-
-
-.header{
-  display: flex;
-  margin-bottom: 30px;
-
-  &-title {
-    font-weight: 500;
-    font-size: 30px;
-  }
-}
-
-input {
-  display: flex;
-  width: calc(100% - 15px);
-  height: 40px;
-  padding-left: 10px;
-  margin-bottom: 20px;
-  outline: none;
-  border: 2px solid #ccc;
-}
-
-button {
-  display: block;
-  width: 100%;
-  height: 40px;
-  outline: none;
-  border: 2px solid #ccc;
-}
-
-.auth-error{
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto 20px;
-  border: 1px solid red;
-  padding: 10px;
-  color: red;
-}
-
-.close{
-  cursor: pointer;
-}
 </style>
